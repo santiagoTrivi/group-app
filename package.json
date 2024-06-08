@@ -1,0 +1,12 @@
+{
+  "name": "group-full-project",
+  "version": "1.0.0",
+  "description": "comunication platform full project",
+  "main": "index.js",
+  "scripts": {
+    "start:client": "npm --prefix group-client-app run dev",
+    "start:server": "npm --prefix group-backend run start:dev"
+  },
+  "author": "",
+  "license": "ISC"
+}
