@@ -1,5 +1,6 @@
 /* eslint-disable prettier/prettier */
 // eslint-disable-next-line prettier/prettier
+import { Credentials } from './interfaces/credentials';
 import { ILogin } from './interfaces/login.interface';
 import { IRegister } from './interfaces/register.interface';
 
@@ -7,5 +8,14 @@ import { IRegister } from './interfaces/register.interface';
 export interface AuthenticationServiceInterface<T> {
   valideateUser(login: ILogin): Promise<T | null>;
   register(register: IRegister): Promise<void>;
-  // login(user: T): Promise<void>;
+  login(user: T): Promise<Credentials>;
+  getTokens(uuid: string, username: string): Promise<Credentials>;
+  updateRefreshToken(id: string, refreshTokenInput: string): Promise<void>;
+  refreshTokens(
+    clientId: string,
+    refreshTokenInput: string,
+  ): Promise<Credentials>;
+  logout(id: string): Promise<void>;
+
+  get(id: string): Promise<any>;
 }

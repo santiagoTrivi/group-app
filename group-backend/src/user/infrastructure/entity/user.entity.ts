@@ -24,6 +24,11 @@ export class User {
   @Column()
   public password: string;
 
+  @Column({
+    nullable: true,
+  })
+  refreshToken: string;
+
   @CreateDateColumn({
     type: 'timestamp',
     default: () => 'CURRENT_TIMESTAMP(6)',
