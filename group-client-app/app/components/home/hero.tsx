@@ -17,7 +17,7 @@ export default function Hero() {
           </p>
           <div className="flex w-full pt-8 justify-center gap-x-8">
             <a
-              href=""
+              href="/auth/register"
               className="bg-indigo-500 w-1/2 py-4 px-8 text-white rounded-[4px] lg:w-fit"
             >
               Registrate

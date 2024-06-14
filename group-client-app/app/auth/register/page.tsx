@@ -1,10 +1,42 @@
-export default function Login() {
+export default function Register() {
   return (
     <div className=" max-w-sm p-4 bg-white border border-gray-200 rounded-lg shadow sm:p-6 md:p-8 dark:bg-gray-800 dark:border-gray-700 w-[500px]">
       <form className="space-y-6" action="#">
         <h5 className="text-xl font-medium text-gray-900 dark:text-white">
-          Inicia en nuestra plataforma
+          Registrate ya
         </h5>
+        <div>
+          <label
+            htmlFor="name"
+            className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+          >
+            Nomre
+          </label>
+          <input
+            type="name"
+            name="name"
+            id="name"
+            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
+            placeholder="tu nombre"
+            required
+          />
+        </div>
+        <div>
+          <label
+            htmlFor="lastName"
+            className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+          >
+            Apellido
+          </label>
+          <input
+            type="lastName"
+            name="lastName"
+            id="lastName"
+            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
+            placeholder="tu nombre"
+            required
+          />
+        </div>
         <div>
           <label
             htmlFor="email"
@@ -71,7 +103,7 @@ export default function Login() {
         <div className="text-sm font-medium text-gray-500 dark:text-gray-300">
           Aun no estas registrado?{" "}
           <a
-            href="/auth/register"
+            href="#"
             className="text-blue-700 hover:underline dark:text-blue-500"
           >
             Registrate

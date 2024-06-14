@@ -1,0 +1,41 @@
+version: '3'
+services:
+
+  backend-api:
+    build: ./group-backend
+    ports:
+      - 3030:3030
+    environment:
+      PORT: 3030
+      POSTGRES_HOST: postgresdatabase
+      POSTGRES_PORT: 5432
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: group-backend-db
+      PRIVATE_KEY: MIICXQIBAAKBgQDRH76tG8ii3NXmOtNEkDOWm1ASvbIMymus0r90UjdQxLfM4ZBu6S3+1CH64rNRLtvOsHO7vLGexaI0zSGAQlTCLR8+yuZBFsno9eyQp4mKhKWQqwNz+GNocOszZ8ilbqbI95LK0ORRQRJZZRNmFBrPe8oPBZNfvXflL70ZOqtOhwIDAQABAoGASo8s5n9Pa3Gc+bbjeECJhBrf0666eoD5HucMx6ZAfpWEipGpc0HD2mU7sD1/fWRdjjWvLbI7Ccag7H5ugVIk8WiNisIuLsNlIm/zZS4kAffq7iaBGg4x2zWyQQTOwocgk0nyLIbemaz3i68fJIOgMiAjRkQ9IpmWvnNT5PGVwDECQQD81T+iGjshbts3aoAC7Me8sME6URCFGw8+0u+1ILlH0srYMuDNzITsfQDd+CPJCPipf/FboZ/U1k0u3Pxf3cBLAkEA075WBbSLhI2Ki0d7OpwwoK4IgXfEa1+PWHgI5Vdb0T+69L1Mc7srXkbv2JEg6Z5SI7jEmJ5MguDU9lqTsK4dNQJBANZlpt45TCcfsDkf0Imqa/2wDUr8
+      REFRESH_KEY: MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQDRH76tG8ii3NXmOtNEkDOWm1ASvbIMymus0r90UjdQxLfM4ZBu6S3+1CH64rNRLtvOsHO7vLGexaI0zSGAQlTCLR8+yuZBFsno9eyQp4mKhKWQqwNz+GNocOszZ8ilbqbI95LK0ORRQRJZZRNmFBrPe8oPBZNfvXflL70ZOqtOhwIDAQAB
+    volumes:
+      - ./group-backend/src/:/group-backend/src/
+    networks:
+      - network-app
+    depends_on:
+      - postgresdatabase
+
+  postgresdatabase:
+    image: postgres:16.3
+    container_name: postgresSql
+    restart: always
+    environment:
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=group-backend-db
+      - POSTGRES_USER=postgres
+    ports:
+      - 5433:5432
+    networks:
+      - network-app
+    volumes:
+      - ./db/init.sql:/docker-entrypoint-initdb.d/init.sql
+
+networks:
+  network-app:
+    driver: bridge
