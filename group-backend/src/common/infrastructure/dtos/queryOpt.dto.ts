@@ -1,5 +1,5 @@
 /* eslint-disable prettier/prettier */
-import { IsNumber, IsOptional } from 'class-validator';
+import { IsNumber, IsOptional, IsString } from 'class-validator';
 import { QueryOpt } from 'src/common/domain/interfaces/query.interface';
 
 export class QueryOptDto {
@@ -11,7 +11,11 @@ export class QueryOptDto {
   @IsOptional()
   page: number;
 
+  @IsOptional()
+  @IsString()
+  search: string;
+
   get = () => {
-    return new QueryOpt(this.page, this.limit);
+    return new QueryOpt(this.page, this.limit, this.search);
   };
 }
