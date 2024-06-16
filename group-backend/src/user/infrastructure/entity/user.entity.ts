@@ -3,9 +3,13 @@ import {
   Column,
   CreateDateColumn,
   Entity,
+  ManyToMany,
+  OneToMany,
   PrimaryColumn,
   UpdateDateColumn,
 } from 'typeorm';
+import { ConnectedUser } from './connected.user.entity';
+import { Workspace } from 'src/workspace/infrastructure/entity/workspace.entity';
 
 @Entity({ name: 'user' })
 export class User {
@@ -28,6 +32,12 @@ export class User {
     nullable: true,
   })
   refreshToken: string;
+
+  @OneToMany(() => ConnectedUser, (connection) => connection.user)
+  connections: ConnectedUser[];
+
+  @ManyToMany(() => Workspace, (workspace) => workspace.users)
+  workspaces: Workspace[];
 
   @CreateDateColumn({
     type: 'timestamp',

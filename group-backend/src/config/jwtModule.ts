@@ -3,7 +3,7 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 import { JwtModule } from '@nestjs/jwt';
 
 export const CONFIG_JWT_TIMING = {
-  access_token_expireIn: '60s',
+  access_token_expireIn: '7d',
   refresh_token_expireIn: '7d',
 };
 
