@@ -1,7 +1,12 @@
+"use client";
 import Image from "next/image";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
+
+import { signIn, useSession } from "next-auth/react";
 export default function Hero() {
+  const { data: session, status } = useSession();
+  console.log({ session, status });
   return (
     <section className="text-gray-600 body-font">
       <div className="container mx-auto flex px-5 py-24 items-center justify-center flex-col">
@@ -17,13 +22,15 @@ export default function Hero() {
           </p>
           <div className="flex w-full pt-8 justify-center gap-x-8">
             <a
-              href=""
+              href="/auth/register"
               className="bg-indigo-500 w-1/2 py-4 px-8 text-white rounded-[4px] lg:w-fit"
             >
               Registrate
             </a>
-            <a
-              href="/auth/login"
+            <button
+              onClick={() => {
+                signIn();
+              }}
               className="w-1/2 text-indigo-500 flex items-center justify-center gap-x-2 lg:w-fit"
             >
               Iniciar
@@ -34,7 +41,7 @@ export default function Hero() {
                   style={{ color: "indigo-500" }}
                 ></FontAwesomeIcon>
               </span>
-            </a>
+            </button>
           </div>
         </div>
       </div>

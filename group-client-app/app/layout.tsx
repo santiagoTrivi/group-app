@@ -5,6 +5,7 @@ import { ReactNode } from "react";
 import "@fortawesome/fontawesome-svg-core/styles.css";
 import { config } from "@fortawesome/fontawesome-svg-core";
 import Header from "./components/home/header";
+import SessionAuthProvider from "./components/Provider";
 config.autoAddCss = false; /* eslint-disable import/first */
 
 const inter = Inter({ subsets: ["latin"] });
@@ -22,8 +23,10 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        <Header />
-        {children}
+        <SessionAuthProvider>
+          <Header />
+          {children}
+        </SessionAuthProvider>
       </body>
     </html>
   );
