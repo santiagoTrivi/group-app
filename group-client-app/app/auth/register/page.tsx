@@ -6,7 +6,8 @@ import { useState } from "react";
 
 const RegisterPage = () => {
   const [errors, setErrors] = useState<string[]>([]);
-  const [name, setName] = useState<string>("test");
+  const [firstName, setFirstName] = useState<string>("test");
+  const [lastName, setLastName] = useState<string>("test");
   const [email, setEmail] = useState<string>("test@test.com");
   const [password, setPassword] = useState<string>("123123");
   const router = useRouter();
@@ -23,7 +24,7 @@ const RegisterPage = () => {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          name,
+          firstName,
           email,
           password,
         }),
@@ -52,73 +53,26 @@ const RegisterPage = () => {
   };
 
   return (
-    <div>
-      <h1>Register</h1>
-      <form onSubmit={handleSubmit}>
-        <input
-          type="text"
-          placeholder="test"
-          name="name"
-          className="form-control mb-2"
-          value={name}
-          onChange={(event) => setName(event.target.value)}
-        />
-        <input
-          type="email"
-          placeholder="test@test.com"
-          name="email"
-          className="form-control mb-2"
-          value={email}
-          onChange={(event) => setEmail(event.target.value)}
-        />
-        <input
-          type="password"
-          placeholder="123123"
-          name="password"
-          className="form-control mb-2"
-          value={password}
-          onChange={(event) => setPassword(event.target.value)}
-        />
-        <button type="submit" className="btn btn-primary">
-          Register
-        </button>
-      </form>
-
-      {errors.length > 0 && (
-        <div className="alert alert-danger mt-2">
-          <ul className="mb-0">
-            {errors.map((error) => (
-              <li key={error}>{error}</li>
-            ))}
-          </ul>
-        </div>
-      )}
-    </div>
-  );
-};
-export default RegisterPage;
-/*
-export default function Register() {
-  return (
     <div className=" max-w-sm p-4 bg-white border border-gray-200 rounded-lg shadow sm:p-6 md:p-8 dark:bg-gray-800 dark:border-gray-700 w-[500px]">
-      <form className="space-y-6" action="#">
-        <h5 className="text-xl font-medium text-gray-900 dark:text-white">
-          Registrate ya
-        </h5>
+      <h5 className="text-xl font-medium text-gray-900 dark:text-white">
+        Registrate en nuestra plataforma
+      </h5>
+      <form className="space-y-6" onSubmit={handleSubmit}>
         <div>
           <label
-            htmlFor="name"
+            htmlFor="firstName"
             className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
           >
-            Nomre
+            Nombre
           </label>
           <input
-            type="name"
-            name="name"
-            id="name"
+            type="firstName"
+            name="firstName"
+            id="firstName"
             className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
-            placeholder="tu nombre"
-            required
+            placeholder="test"
+            value={firstName}
+            onChange={(event) => setFirstName(event.target.value)}
           />
         </div>
         <div>
@@ -133,8 +87,9 @@ export default function Register() {
             name="lastName"
             id="lastName"
             className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
-            placeholder="tu nombre"
-            required
+            placeholder="test"
+            value={lastName}
+            onChange={(event) => setLastName(event.target.value)}
           />
         </div>
         <div>
@@ -142,7 +97,7 @@ export default function Register() {
             htmlFor="email"
             className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
           >
-            Tu email
+            Email
           </label>
           <input
             type="email"
@@ -150,7 +105,8 @@ export default function Register() {
             id="email"
             className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
             placeholder="name@company.com"
-            required
+            value={email}
+            onChange={(event) => setEmail(event.target.value)}
           />
         </div>
         <div>
@@ -158,7 +114,7 @@ export default function Register() {
             htmlFor="password"
             className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
           >
-            Tu contraseña
+            Contraseña
           </label>
           <input
             type="password"
@@ -166,51 +122,73 @@ export default function Register() {
             id="password"
             placeholder="••••••••"
             className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
-            required
+            value={password}
+            onChange={(event) => setPassword(event.target.value)}
           />
         </div>
         <div className="flex items-start">
-          <div className="flex items-start">
-            <div className="flex items-center h-5">
-              <input
-                id="remember"
-                type="checkbox"
-                value=""
-                className="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-blue-300 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800"
-                required
-              />
-            </div>
-            <label
-              htmlFor="remember"
-              className="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300"
-            >
-              Remember me
-            </label>
-          </div>
           <a
             href="#"
             className="ms-auto text-sm text-blue-700 hover:underline dark:text-blue-500"
           >
-            Lost Password?
+            Ya tengo una cuenta
           </a>
         </div>
         <button
           type="submit"
           className="w-full text-white bg-indigo-500 hover:bg-indigo-600 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
         >
-          Iniciar sesion
+          Crear cuenta
         </button>
-        <div className="text-sm font-medium text-gray-500 dark:text-gray-300">
-          Aun no estas registrado?{" "}
-          <a
-            href="#"
-            className="text-blue-700 hover:underline dark:text-blue-500"
-          >
-            Registrate
-          </a>
-        </div>
       </form>
+
+      {errors.length > 0 && (
+        <div
+          id="alert-2"
+          className="flex items-center p-4 mb-4 text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400"
+          role="alert"
+        >
+          <svg
+            className="flex-shrink-0 w-4 h-4"
+            aria-hidden="true"
+            xmlns="http://www.w3.org/2000/svg"
+            fill="currentColor"
+            viewBox="0 0 20 20"
+          >
+            <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z" />
+          </svg>
+          <span className="sr-only">Info</span>
+          <div className="ms-3 text-sm font-medium">
+            {errors.map((error) => (
+              <li key={error}>{error}</li>
+            ))}
+          </div>
+          <button
+            type="button"
+            className="ms-auto -mx-1.5 -my-1.5 bg-red-50 text-red-500 rounded-lg focus:ring-2 focus:ring-red-400 p-1.5 hover:bg-red-200 inline-flex items-center justify-center h-8 w-8 dark:bg-gray-800 dark:text-red-400 dark:hover:bg-gray-700"
+            data-dismiss-target="#alert-2"
+            aria-label="Close"
+          >
+            <span className="sr-only">Close</span>
+            <svg
+              className="w-3 h-3"
+              aria-hidden="true"
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 14 14"
+            >
+              <path
+                stroke="currentColor"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"
+              />
+            </svg>
+          </button>
+        </div>
+      )}
     </div>
   );
-}
-*/
+};
+export default RegisterPage;

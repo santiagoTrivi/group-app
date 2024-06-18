@@ -4,6 +4,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
 
 import { signIn, useSession } from "next-auth/react";
+import Link from "next/link";
 export default function Hero() {
   const { data: session, status } = useSession();
   console.log({ session, status });
@@ -21,27 +22,45 @@ export default function Hero() {
             propuesta con un entorno amigable.
           </p>
           <div className="flex w-full pt-8 justify-center gap-x-8">
-            <a
-              href="/auth/register"
-              className="bg-indigo-500 w-1/2 py-4 px-8 text-white rounded-[4px] lg:w-fit"
-            >
-              Registrate
-            </a>
-            <button
-              onClick={() => {
-                signIn();
-              }}
-              className="w-1/2 text-indigo-500 flex items-center justify-center gap-x-2 lg:w-fit"
-            >
-              Iniciar
-              <span className="w-5">
-                <FontAwesomeIcon
-                  icon={faArrowRight}
-                  className="fa-solid fa-arrow-right"
-                  style={{ color: "indigo-500" }}
-                ></FontAwesomeIcon>
-              </span>
-            </button>
+            {session?.user ? (
+              <Link
+                href="/dashboard"
+                className="w-1/2 text-indigo-500 flex items-center justify-center gap-x-2 lg:w-fit"
+              >
+                Ir al Dashboard
+                <span className="w-5">
+                  <FontAwesomeIcon
+                    icon={faArrowRight}
+                    className="fa-solid fa-arrow-right"
+                    style={{ color: "indigo-500" }}
+                  ></FontAwesomeIcon>
+                </span>
+              </Link>
+            ) : (
+              <>
+                <a
+                  href="/auth/register"
+                  className="bg-indigo-500 w-1/2 py-4 px-8 text-white rounded-[4px] lg:w-fit"
+                >
+                  Registrate
+                </a>
+                <button
+                  onClick={() => {
+                    signIn();
+                  }}
+                  className="w-1/2 text-indigo-500 flex items-center justify-center gap-x-2 lg:w-fit"
+                >
+                  Iniciar
+                  <span className="w-5">
+                    <FontAwesomeIcon
+                      icon={faArrowRight}
+                      className="fa-solid fa-arrow-right"
+                      style={{ color: "indigo-500" }}
+                    ></FontAwesomeIcon>
+                  </span>
+                </button>
+              </>
+            )}
           </div>
         </div>
       </div>
