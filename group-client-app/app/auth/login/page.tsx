@@ -75,7 +75,7 @@ const LoginPage = () => {
             href="#"
             className="ms-auto text-sm text-blue-700 hover:underline dark:text-blue-500"
           >
-            Lost Password?
+            Olvidaste tu contraseña?
           </a>
         </div>
         <button
