@@ -1,15 +1,15 @@
-import { FC, ReactNode } from "react";
+import { ReactNode } from "react";
 
-interface AuthLayoutProps {
+export default function Auth({
+  children,
+}: Readonly<{
   children: ReactNode;
-}
-
-const AuthLayout: FC<AuthLayoutProps> = ({ children }) => {
+}>) {
   return (
-    <main className="justify-center content-centercontainer mx-auto flex flex-wrap p-5 flex-col md:flex-row items-center">
-      <div>{children}</div>
-    </main>
+    <div className="">
+      <div className="container mx-auto flex px-5 py-24 items-center justify-center flex-col">
+        {children}
+      </div>
+    </div>
   );
-};
-
-export default AuthLayout;
+}
