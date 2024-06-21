@@ -22,7 +22,6 @@ const handler = NextAuth({
           credentials?.email as string,
           credentials?.password as string
         );
-        console.log(user);
         if (user.statusCode === 401) return null;
         return user;
       },
@@ -30,10 +29,15 @@ const handler = NextAuth({
   ],
   callbacks: {
     async jwt({ token, user }) {
+      const data = await AuthRepository().getMe(token.accessToken as string);
+      token.data = data;
       return { ...token, ...user };
     },
     async session({ session, token }) {
-      session.user = token as any;
+      const { data, ...rest } = token;
+      session.user = rest as any;
+      session.data = data as any;
+      console.log(session);
       return session;
     },
   },

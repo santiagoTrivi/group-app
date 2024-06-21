@@ -27,7 +27,7 @@ export class AuthenticationService
   async get(id: string): Promise<any> {
     const user = await this.userRepository.findOneBy({ id });
 
-    const { password, email, refreshToken, ...result } = user;
+    const { password, refreshToken, ...result } = user;
 
     return result;
   }

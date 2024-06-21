@@ -19,12 +19,12 @@ export class AuthenticationController {
 
   @Post('signup')
   async register(@Body() registerdto: RegisterDto): Promise<void> {
+    console.log(registerdto);
     return await this.authenticationService.register(registerdto);
   }
   @UseGuards(LocalAuthGuard)
   @Post('login')
   async login(@Request() req) {
-    console.log(req.user);
     return this.authenticationService.login(req.user);
   }
   @UseGuards(LocalAuthGuard)
