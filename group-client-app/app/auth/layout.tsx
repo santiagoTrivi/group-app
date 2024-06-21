@@ -7,7 +7,7 @@ export default function Auth({
 }>) {
   return (
     <div className="">
-      <div className="container mx-auto flex px-5 py-24 items-center justify-center flex-col">
+      <div className="container mx-auto flex px-5 py-[45px] items-center justify-center flex-col">
         {children}
       </div>
     </div>

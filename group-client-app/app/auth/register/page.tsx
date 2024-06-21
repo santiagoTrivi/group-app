@@ -1,5 +1,6 @@
 "use client";
 
+import { AuthRepository } from "@/app/api/auth/service/auth.repository";
 import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
@@ -16,40 +17,37 @@ const RegisterPage = () => {
     event.preventDefault();
     setErrors([]);
 
-    const res = await fetch(
-      `${process.env.NEXT_PUBLIC_BACKEND_URL}/auth/register`,
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          firstName,
-          email,
-          password,
-        }),
-      }
-    );
-
-    const responseAPI = await res.json();
-
-    if (!res.ok) {
-      setErrors(responseAPI.message);
-      return;
-    }
-
-    const responseNextAuth = await signIn("credentials", {
+    const res = await AuthRepository().signUp(
       email,
       password,
-      redirect: false,
-    });
+      firstName,
+      lastName
+    );
 
-    if (responseNextAuth?.error) {
-      setErrors(responseNextAuth.error.split(","));
-      return;
+    if (res.ok) {
+      const responseNextAuth = await signIn("credentials", {
+        email,
+        password,
+        redirect: false,
+      });
+
+      if (responseNextAuth?.error) {
+        setErrors(responseNextAuth.error.split(","));
+        return;
+      }
+
+      router.push("/dashboard");
     }
 
-    router.push("/dashboard");
+    if (!res.ok) {
+      const apiRes = await res.json();
+      console.log(apiRes);
+      if (apiRes.statusCode)
+        setErrors(
+          Array.isArray(apiRes.message) ? apiRes.message : [apiRes.message]
+        );
+      return;
+    }
   };
 
   return (
@@ -128,7 +126,7 @@ const RegisterPage = () => {
         </div>
         <div className="flex items-start">
           <a
-            href="#"
+            href="/auth/login"
             className="ms-auto text-sm text-blue-700 hover:underline dark:text-blue-500"
           >
             Ya tengo una cuenta
@@ -160,7 +158,9 @@ const RegisterPage = () => {
           <span className="sr-only">Info</span>
           <div className="ms-3 text-sm font-medium">
             {errors.map((error) => (
-              <li key={error}>{error}</li>
+              <li key={error}>
+                {error} <br />
+              </li>
             ))}
           </div>
           <button

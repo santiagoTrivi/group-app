@@ -8,7 +8,7 @@ export function AuthRepository() {
     signUp: async (
       email: string,
       password: string,
-      fistName: string,
+      firstName: string,
       lastName: string
     ) => {
       const response = await fetch(baseUrl + "/authentication/signup", {
@@ -20,12 +20,12 @@ export function AuthRepository() {
         body: JSON.stringify({
           email,
           password,
-          fistName,
+          firstName,
           lastName,
         }),
       });
 
-      return await response.json();
+      return response;
     },
 
     login: async (email: string, password: string) => {
