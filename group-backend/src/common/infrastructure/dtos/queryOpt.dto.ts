@@ -1,13 +1,13 @@
 /* eslint-disable prettier/prettier */
-import { IsNumber, IsOptional, IsString } from 'class-validator';
+import { IsNumberString, IsOptional, IsString } from 'class-validator';
 import { QueryOpt } from 'src/common/domain/interfaces/query.interface';
 
 export class QueryOptDto {
-  @IsNumber()
+  @IsNumberString()
   @IsOptional()
   limit: number;
 
-  @IsNumber()
+  @IsNumberString()
   @IsOptional()
   page: number;
 
