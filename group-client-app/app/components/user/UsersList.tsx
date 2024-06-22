@@ -15,12 +15,12 @@ export default function UsersList({ users }: Props) {
           <li className="py-3 sm:py-4" key={user.id}>
             <div className="flex items-center space-x-4 rtl:space-x-reverse">
               <div className="flex-shrink-0">
-                <Image
-                  src="/99df05b4-d55b-4277-9c89-9da815ff34ca.jpg"
-                  alt="user"
-                  width={40}
-                  height={40}
-                />
+                <div className="relative inline-flex items-center justify-center w-10 h-10 overflow-hidden bg-blue-100 rounded-full dark:bg-gray-600">
+                  <span className="font-medium text-blue-800 dark:text-gray-300">
+                    {user.firstName[0].toLocaleUpperCase() +
+                      user.lastName[0].toLocaleUpperCase()}
+                  </span>
+                </div>
               </div>
               <div className="flex-1 min-w-0">
                 <p className="text-sm font-medium text-gray-900 truncate dark:text-white">
