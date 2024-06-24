@@ -18,7 +18,7 @@ export class AuthenticationController {
   constructor(private readonly authenticationService: AuthenticationService) {}
 
   @Post('signup')
-  async register(@Body() registerdto: RegisterDto): Promise<void> {
+  async register(@Body() registerdto: RegisterDto) {
     console.log(registerdto);
     return await this.authenticationService.register(registerdto);
   }

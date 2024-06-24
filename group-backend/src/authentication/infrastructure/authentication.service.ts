@@ -87,21 +87,20 @@ export class AuthenticationService
 
     return tokens;
   }
-  async register(register: IRegister): Promise<void> {
+  async register(register: IRegister): Promise<Credentials> {
     const { email, password, firstName, lastName } = register;
 
     const existUser = await this.userRepository.findOneBy({ email });
     if (existUser) throw new HttpException('user already exist', 400);
 
     const hashedPassword = await this.bcryptPasswordHashService.hash(password);
-    await this.userRepository.save({
+    const user = await this.userRepository.save({
       firstName,
       lastName,
       email,
       password: hashedPassword,
     });
-
-    return;
+    return await this.login(user);
   }
 
   async valideateUser(login: ILogin): Promise<User | null> {

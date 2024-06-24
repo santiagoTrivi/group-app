@@ -1,12 +1,14 @@
 "use client";
 import { WorkspaceRepository } from "@/app/workspace/service/workspace.respository";
 import { useSession } from "next-auth/react";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 const CreateWorkpaceModal = () => {
   const [isHidden, setIsHidden] = useState(false);
   const [name, setName] = useState<string>("");
   const [errors, setErrors] = useState<string[]>([]);
   const { data: session } = useSession();
+  const router = useRouter();
   const HandleHidden = () => {
     setIsHidden(!isHidden);
   };
@@ -31,6 +33,7 @@ const CreateWorkpaceModal = () => {
     }
 
     setIsHidden(!isHidden);
+    router.push("/dashboard/workspace");
   };
 
   return (
