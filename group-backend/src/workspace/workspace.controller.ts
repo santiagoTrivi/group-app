@@ -39,7 +39,7 @@ export class WorkspaceController {
 
     return await this.workspaceService.get(userId, queryOpt);
   }
-  // @UseGuards(JwtAuthGuard)
+  @UseGuards(JwtAuthGuard)
   @Get(':id')
   async getMembers(@Param('id') workspace_id, @Query() queryDto: QueryOptDto) {
     const queryOpt = QueryAdapter.get(queryDto);
@@ -57,5 +57,13 @@ export class WorkspaceController {
       workspace_id,
       addMemberDto.userId,
     );
+  }
+
+  @UseGuards(JwtAuthGuard)
+  @Get(':id/joined')
+  async getMembersCount(@Param('id') userId, @Query() queryDto: QueryOptDto) {
+    const queryOpt = QueryAdapter.get(queryDto);
+
+    return await this.workspaceService.getJoined(userId, queryOpt);
   }
 }

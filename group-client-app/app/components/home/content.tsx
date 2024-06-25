@@ -9,11 +9,35 @@ const Content = () => {
             Caracteristicas implementadas
           </h1>
           <p className="lg:w-1/2 w-full leading-relaxed text-gray-500">
-            Whatever cardigan tote bag tumblr hexagon brooklyn asymmetrical
-            gentrify, subway tile poke farm-to-table.
+            App web dividida en Backend con Nestjs y Frontend con Nextjs (Stack
+            NodeJs), usando PostgreSql y/o MySql como base de datos y aplicando
+            la comunicacion continua de los servidores a travez de WebSockets.
           </p>
         </div>
         <div className="flex flex-wrap -m-4">
+          <div className="xl:w-1/3 md:w-1/2 p-4">
+            <div className="border border-gray-200 p-6 rounded-lg">
+              <div className="w-10 h-10 inline-flex items-center justify-center rounded-full bg-indigo-100 text-indigo-500 mb-4">
+                <svg
+                  fill="none"
+                  stroke="currentColor"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
+                  className="w-6 h-6"
+                  viewBox="0 0 24 24"
+                >
+                  <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+                </svg>
+              </div>
+              <h2 className="text-lg text-gray-900 font-medium title-font mb-2">
+                Autenticacion de usuarios
+              </h2>
+              <p className="leading-relaxed text-base">
+                Usando JWT (Json Web Tokens) para la autenticacion de usuarios.
+              </p>
+            </div>
+          </div>
           <div className="xl:w-1/3 md:w-1/2 p-4">
             <div className="border border-gray-200 p-6 rounded-lg">
               <div className="w-10 h-10 inline-flex items-center justify-center rounded-full bg-indigo-100 text-indigo-500 mb-4">
@@ -30,11 +54,11 @@ const Content = () => {
                 </svg>
               </div>
               <h2 className="text-lg text-gray-900 font-medium title-font mb-2">
-                Shooting Stars
+                Panel de administracion
               </h2>
               <p className="leading-relaxed text-base">
-                Fingerstache flexitarian street art 8-bit waist co, subway tile
-                poke farm.
+                Panel de administracion, donde podra navegar entre las
+                diferentes secciones.
               </p>
             </div>
           </div>
@@ -56,11 +80,11 @@ const Content = () => {
                 </svg>
               </div>
               <h2 className="text-lg text-gray-900 font-medium title-font mb-2">
-                The Catalyzer
+                Grupos de trabajo
               </h2>
               <p className="leading-relaxed text-base">
-                Fingerstache flexitarian street art 8-bit waist co, subway tile
-                poke farm.
+                Creaccion, visualizacion de gropo de trabajo con una variedad de
+                usuarios.
               </p>
             </div>
           </div>
@@ -81,11 +105,10 @@ const Content = () => {
                 </svg>
               </div>
               <h2 className="text-lg text-gray-900 font-medium title-font mb-2">
-                Neptune
+                Busqueda de usuarios
               </h2>
               <p className="leading-relaxed text-base">
-                Fingerstache flexitarian street art 8-bit waist co, subway tile
-                poke farm.
+                Facilidad para buscar usuarios y agregarlos a grupos.
               </p>
             </div>
           </div>
@@ -105,11 +128,11 @@ const Content = () => {
                 </svg>
               </div>
               <h2 className="text-lg text-gray-900 font-medium title-font mb-2">
-                Melanchole
+                Chat privado
               </h2>
               <p className="leading-relaxed text-base">
-                Fingerstache flexitarian street art 8-bit waist co, subway tile
-                poke farm.
+                Chat de usuario en tiempo real y privado con los miembros de un
+                grupo.
               </p>
             </div>
           </div>
@@ -129,42 +152,14 @@ const Content = () => {
                 </svg>
               </div>
               <h2 className="text-lg text-gray-900 font-medium title-font mb-2">
-                Bunker
+                Diseño UI agradable
               </h2>
               <p className="leading-relaxed text-base">
-                Fingerstache flexitarian street art 8-bit waist co, subway tile
-                poke farm.
-              </p>
-            </div>
-          </div>
-          <div className="xl:w-1/3 md:w-1/2 p-4">
-            <div className="border border-gray-200 p-6 rounded-lg">
-              <div className="w-10 h-10 inline-flex items-center justify-center rounded-full bg-indigo-100 text-indigo-500 mb-4">
-                <svg
-                  fill="none"
-                  stroke="currentColor"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth="2"
-                  className="w-6 h-6"
-                  viewBox="0 0 24 24"
-                >
-                  <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
-                </svg>
-              </div>
-              <h2 className="text-lg text-gray-900 font-medium title-font mb-2">
-                Ramona Falls
-              </h2>
-              <p className="leading-relaxed text-base">
-                Fingerstache flexitarian street art 8-bit waist co, subway tile
-                poke farm.
+                Diseño de la interfaz de usuario agradable con tailwind.
               </p>
             </div>
           </div>
         </div>
-        <button className="flex mx-auto mt-16 text-white bg-indigo-500 border-0 py-2 px-8 focus:outline-none hover:bg-indigo-600 rounded text-lg">
-          Button
-        </button>
       </div>
     </section>
   );

@@ -2,11 +2,20 @@ import Image from "next/image";
 import { signOut, useSession } from "next-auth/react";
 import { useState } from "react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { useWorkspaceStore } from "@/app/hooks/store";
 export default function SessionMenu() {
   const [isHidden, setIsHidden] = useState(false);
+  const router = useRouter();
+  const { removeworkspace } = useWorkspaceStore();
   const { data: session } = useSession();
   const HandleHidden = () => {
     setIsHidden(!isHidden);
+  };
+
+  const handleLogout = async () => {
+    removeworkspace();
+    signOut({ callbackUrl: "/auth/login", redirect: true });
   };
 
   return (
@@ -49,27 +58,13 @@ export default function SessionMenu() {
               Dashboard
             </Link>
           </li>
-          <li>
-            <a
-              href="#"
-              className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
-            >
-              Settings
-            </a>
-          </li>
-          <li>
-            <a
-              href="#"
-              className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
-            >
-              Earnings
-            </a>
-          </li>
         </ul>
         <div className="py-2">
           <button
             className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
-            onClick={() => signOut()}
+            onClick={() => {
+              handleLogout();
+            }}
           >
             Cerrar Sesion
           </button>

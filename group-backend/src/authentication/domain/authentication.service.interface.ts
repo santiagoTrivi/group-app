@@ -7,7 +7,7 @@ import { IRegister } from './interfaces/register.interface';
 /* eslint-disable prettier/prettier */
 export interface AuthenticationServiceInterface<T> {
   valideateUser(login: ILogin): Promise<T | null>;
-  register(register: IRegister): Promise<void>;
+  register(register: IRegister): Promise<Credentials>;
   login(user: T): Promise<Credentials>;
   getTokens(uuid: string, username: string): Promise<Credentials>;
   updateRefreshToken(id: string, refreshTokenInput: string): Promise<void>;
