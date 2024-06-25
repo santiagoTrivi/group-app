@@ -98,4 +98,18 @@ export class WorkspaceService implements IWorkspaceService<Workspace> {
     });
     return await this.workspaceRepository.save(workspace);
   }
+
+  async getJoined(
+    userId: string,
+    queryOpt: QueryOpt,
+  ): Promise<Pagination<Workspace>> {
+    const [users, count] = await this.workspaceRepository.findAndCount({
+      where: { users: { id: userId } },
+      select: ['id', 'name'],
+      take: queryOpt.limit,
+      skip: queryOpt.offSet(),
+    });
+    if (!users && !count) return Pagination.create([], queryOpt, 0);
+    return Pagination.create(users, queryOpt, count);
+  }
 }

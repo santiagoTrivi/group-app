@@ -1,38 +1,21 @@
-import { PaginationResult } from "@/app/shared/domain/pagination.result";
-import { UserProps } from "@/app/user/domain/user.props";
 import React, { useState } from "react";
-import Image from "next/image";
 import { WorkspaceProps } from "@/app/workspace/domain/workspace.props";
-import { cookies } from "next/headers";
-import { useLocalStorage } from "@/app/hooks/useLocalStorage";
-import { useRouter } from "next/navigation";
-import { useWorkspaceStore } from "@/app/hooks/store";
-import { WorkspaceRepository } from "@/app/workspace/service/workspace.respository";
-import { Pagination } from "@/app/shared/domain/pagination";
 import { useSession } from "next-auth/react";
-import { useWorkspaceMembersStore } from "@/app/hooks/workspaceMembers";
+import { useJoinedWorkspaceStore } from "@/app/hooks/joinedworkspace";
 
 type Props = {
   workspaces: WorkspaceProps[];
 };
 
-export default function WorkspaceList({ workspaces }: Props) {
-  const { workspace_stored, setworkspace } = useWorkspaceStore();
+export default function JoinedWorkspaceList({ workspaces }: Props) {
+  const { joined_workspace_selected, setJoinedWorkspace } =
+    useJoinedWorkspaceStore();
   const { data: session } = useSession();
 
-  console.log(workspace_stored);
+  console.log(joined_workspace_selected);
 
   const handleSelectWorkspace = async (workspace: WorkspaceProps) => {
-    setworkspace(workspace);
-
-    const res = await WorkspaceRepository().getMembers(
-      new Pagination({ page: 1, limit: 50 }),
-      workspace_stored?.id as string,
-      session?.user?.accessToken as string
-    );
-
-    const members: UserProps[] = res.data;
-    console.log("got members", members);
+    setJoinedWorkspace(workspace);
   };
 
   return (
@@ -54,7 +37,8 @@ export default function WorkspaceList({ workspaces }: Props) {
                 </p>
               </div>
               <div className="inline-flex items-center text-base font-semibold text-gray-900 dark:text-white">
-                {workspace_stored && workspace_stored.id === workpace.id ? (
+                {joined_workspace_selected &&
+                joined_workspace_selected.id === workpace.id ? (
                   <span className="bg-indigo-100 text-indigo-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-indigo-900 dark:text-indigo-300">
                     En uso
                   </span>

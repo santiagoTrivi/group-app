@@ -12,7 +12,7 @@ export default function SearchUsers({ getSearchResults }: any) {
     e.preventDefault();
     const fetchData = async () => {
       const response = await UserRepository().getUsers(
-        new Pagination({ page: 1, limit: 30, search: query }),
+        new Pagination({ page: 1, limit: 100, search: query }),
         session?.user?.accessToken as string
       );
       console.log(response);

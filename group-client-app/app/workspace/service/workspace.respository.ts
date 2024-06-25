@@ -91,5 +91,38 @@ export function WorkspaceRepository() {
         body: JSON.stringify({ userId }),
       });
     },
+
+    JoinedWorkspace: async (
+      pagination: Pagination,
+      userId: string,
+      accessToken: string
+    ) => {
+      const params = new URLSearchParams();
+      params.append("page", pagination.page.toString());
+      params.append("limit", pagination.limit.toString());
+
+      if (pagination.search) {
+        params.append("search", pagination.search);
+      }
+
+      const response = await fetch(
+        baseUrl + "/workspace/" + userId + "/joined/",
+        {
+          method: httpRequest.get,
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: AuthBearer(accessToken),
+            accept: "application/json",
+          },
+        }
+      );
+
+      const result = await response.json();
+      if (!response.ok) {
+        throw result;
+      }
+
+      return result;
+    },
   };
 }
