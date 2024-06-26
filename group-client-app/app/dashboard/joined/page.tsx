@@ -1,8 +1,6 @@
 "use client";
-import WorkspaceList from "@/app/components/workpace/WorkspaceList";
 import CreateWorkpaceModal from "@/app/components/workpace/createWorkpaceModal";
 import JoinedWorkspaceList from "@/app/components/workpace/joinedWorkspaceList";
-import { useLocalStorage } from "@/app/hooks/useLocalStorage";
 import { Pagination } from "@/app/shared/domain/pagination";
 import { WorkspaceRepository } from "@/app/workspace/service/workspace.respository";
 import { useSession } from "next-auth/react";
