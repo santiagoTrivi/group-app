@@ -22,6 +22,10 @@ export class UserService implements IUserService<User> {
     return user;
   }
 
+  async update(user: User, socketId: string | null): Promise<void> {
+    await this.UserRepository.update({ id: user.id }, { socketId });
+  }
+
   async get(queryOpt: QueryOpt): Promise<Pagination<User>> {
     if (queryOpt.search === '') return Pagination.create([], queryOpt, 0);
 

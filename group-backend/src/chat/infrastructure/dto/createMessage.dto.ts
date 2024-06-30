@@ -1,7 +1,5 @@
 /* eslint-disable prettier/prettier */
-
-export interface ICreateMessage {
+export class CreateMessageDto {
   text: string;
-  sender_id: string;
   receiver_id: string;
 }

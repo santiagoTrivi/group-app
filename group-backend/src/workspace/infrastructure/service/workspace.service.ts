@@ -79,16 +79,15 @@ export class WorkspaceService implements IWorkspaceService<Workspace> {
 
     return Pagination.create(data, queryOpt, count);
   }
-  async create(data: ICreateWorkspace): Promise<void> {
+  async create(data: ICreateWorkspace): Promise<Workspace> {
     const { ownerId, name } = data;
 
     const owner = await this.userService.findById(ownerId);
 
-    this.store({
+    return this.store({
       owner,
       name,
     });
-    return;
   }
   async store<R>(data: IStoreWorkspace<R>): Promise<Workspace> {
     const { owner, name } = data;

@@ -3,7 +3,7 @@ import { WorkspaceRepository } from "@/app/workspace/service/workspace.resposito
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
-const CreateWorkpaceModal = () => {
+const CreateWorkpaceModal = ({ newone }: any) => {
   const [isHidden, setIsHidden] = useState(false);
   const [name, setName] = useState<string>("");
   const [errors, setErrors] = useState<string[]>([]);
@@ -31,6 +31,8 @@ const CreateWorkpaceModal = () => {
         );
       return;
     }
+
+    newone(await res.json());
 
     setIsHidden(!isHidden);
     router.push("/dashboard/workspace");

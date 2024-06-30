@@ -11,5 +11,6 @@ import { User } from 'src/user/infrastructure/entity/user.entity';
   imports: [TypeOrmModule.forFeature([Workspace, User])],
   controllers: [WorkspaceController],
   providers: [WorkspaceService, UserService],
+  exports: [WorkspaceService],
 })
 export class WorkspaceModule {}
