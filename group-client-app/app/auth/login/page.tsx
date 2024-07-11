@@ -1,13 +1,15 @@
 "use client";
 
-import { signIn } from "next-auth/react";
+import { signIn, useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import io from "Socket.IO-client";
 
 const LoginPage = () => {
   const [errors, setErrors] = useState<string[]>([]);
   const [email, setEmail] = useState("test@test.com");
   const [password, setPassword] = useState("123123");
+  const { data: session } = useSession();
   const router = useRouter();
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {

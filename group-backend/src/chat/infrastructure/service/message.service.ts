@@ -5,9 +5,9 @@ import { Repository } from 'typeorm';
 import { Message } from '../entity/message.entity';
 import { InjectRepository } from '@nestjs/typeorm';
 import { ICreateMessage } from '../interfaces/createMessage.interface';
-import { Room } from '../entity/room.entity';
 import { QueryOpt } from 'src/common/domain/interfaces/query.interface';
 import { Pagination } from 'src/common/domain/pagination';
+import { User } from 'src/user/infrastructure/entity/user.entity';
 
 @Injectable()
 export class MessageService {
@@ -17,19 +17,24 @@ export class MessageService {
   ) {}
 
   async create(CreateMessage: ICreateMessage): Promise<Message> {
+    const { text, sender_id, receiver_id } = CreateMessage;
     return this.messageRepository.save(
-      this.messageRepository.create(CreateMessage),
+      this.messageRepository.create({
+        text,
+        sender: { id: sender_id },
+        receiver: { id: receiver_id },
+      }),
     );
   }
 
-  async findMessagesForRoom(
-    room: Room,
+  async findMessages(
+    user: User,
     queryOpt: QueryOpt,
   ): Promise<Pagination<Message>> {
     const [messages, count] = await this.messageRepository.findAndCount({
-      where: { room: room },
+      where: [{ sender: user }, { receiver: user }],
       order: { created_at: 'DESC' },
-      relations: ['user', 'room'],
+      relations: ['sender', 'receiver'],
       take: queryOpt.limit,
       skip: queryOpt.offSet(),
     });

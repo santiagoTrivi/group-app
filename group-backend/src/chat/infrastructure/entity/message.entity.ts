@@ -5,12 +5,10 @@ import {
   CreateDateColumn,
   Entity,
   JoinColumn,
-  JoinTable,
   ManyToOne,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
-import { Room } from './room.entity';
 
 @Entity()
 export class Message {
@@ -20,13 +18,13 @@ export class Message {
   @Column()
   text: string;
 
-  @ManyToOne(() => User, (user) => user.messages)
+  @ManyToOne(() => User)
   @JoinColumn()
-  user: User;
+  sender: User;
 
-  @ManyToOne(() => Room, (room) => room.messages)
-  @JoinTable()
-  room: Room;
+  @ManyToOne(() => User)
+  @JoinColumn()
+  receiver: User;
 
   @CreateDateColumn()
   created_at: Date;

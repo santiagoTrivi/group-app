@@ -1,19 +1,40 @@
 "use client";
-import { ReactNode } from "react";
+import { ReactNode, useEffect } from "react";
 import { useState } from "react";
 import { useWorkspaceStore } from "../hooks/store";
 import { MyWorkspaceMembers } from "../components/workpace/myWorkspaceMembers";
-import { useJoinedWorkspaceStore } from "../hooks/joinedworkspace";
-import { JoinedWorkpsaceMembers } from "../components/workpace/joinedWorkspaceMembers";
+import { useSession } from "next-auth/react";
+import { WorkspaceRepository } from "../workspace/service/workspace.respository";
+import { Pagination } from "../shared/domain/pagination";
+import JoinedWorkspaceList from "../components/workpace/joinedWorkspaceList";
 
 const RootDashboard = ({ children }: { children: ReactNode }) => {
   const [isHidden, setIsHidden] = useState(false);
-  const { workspace_stored, setworkspace } = useWorkspaceStore();
-  const { joined_workspace_selected } = useJoinedWorkspaceStore();
+  const { workspace_stored } = useWorkspaceStore();
+  const [joinedworkspaces, setjoinedworkspace] = useState([]);
+  const { data: session } = useSession();
 
   const HandleHidden = () => {
     setIsHidden(!isHidden);
   };
+
+  useEffect(() => {
+    const getWorkspaces = async () => {
+      try {
+        const res = await WorkspaceRepository().JoinedWorkspace(
+          new Pagination({ page: 1, limit: 30 }),
+          session?.data.id as string,
+          session?.user?.accessToken as string
+        );
+        console.log("joined", res);
+        setjoinedworkspace(res.data);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    getWorkspaces();
+  }, [session]);
 
   return (
     <div className="">
@@ -115,25 +136,6 @@ const RootDashboard = ({ children }: { children: ReactNode }) => {
             </li>
             <li>
               <a
-                href="/dashboard/joined"
-                className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group"
-              >
-                <svg
-                  className="flex-shrink-0 w-5 h-5 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white"
-                  aria-hidden="true"
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="currentColor"
-                  viewBox="0 0 20 20"
-                >
-                  <path d="M14 2a3.963 3.963 0 0 0-1.4.267 6.439 6.439 0 0 1-1.331 6.638A4 4 0 1 0 14 2Zm1 9h-1.264A6.957 6.957 0 0 1 15 15v2a2.97 2.97 0 0 1-.184 1H19a1 1 0 0 0 1-1v-1a5.006 5.006 0 0 0-5-5ZM6.5 9a4.5 4.5 0 1 0 0-9 4.5 4.5 0 0 0 0 9ZM8 10H5a5.006 5.006 0 0 0-5 5v2a1 1 0 0 0 1 1h11a1 1 0 0 0 1-1v-2a5.006 5.006 0 0 0-5-5Z" />
-                </svg>
-                <span className="flex-1 ms-3 whitespace-nowrap text-sm">
-                  Participacion
-                </span>
-              </a>
-            </li>
-            <li>
-              <a
                 href="#"
                 className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group"
               >
@@ -154,13 +156,11 @@ const RootDashboard = ({ children }: { children: ReactNode }) => {
                 </span>
               </a>
             </li>
+            {joinedworkspaces ? (
+              <JoinedWorkspaceList workspaces={joinedworkspaces} />
+            ) : null}
             {workspace_stored ? (
               <MyWorkspaceMembers title={`${workspace_stored.name} miembros`} />
-            ) : null}
-            {joined_workspace_selected ? (
-              <JoinedWorkpsaceMembers
-                title={`${joined_workspace_selected.name} miembros`}
-              />
             ) : null}
           </ul>
         </div>

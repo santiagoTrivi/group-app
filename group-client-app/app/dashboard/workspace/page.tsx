@@ -32,7 +32,11 @@ const Workspace = () => {
       <div className="p-4 border-2 border-gray-200 border-dashed rounded-lg dark:border-gray-700">
         <div className="container mx-auto flex flex-wrap p-5 flex-col md:flex-row items-center">
           <div className="flex title-font font-medium items-center text-gray-900 mb-4 md:mb-0">
-            <CreateWorkpaceModal />
+            <CreateWorkpaceModal
+              newone={(result: any) => {
+                setWorkspaces(workspaces.concat(result));
+              }}
+            />
           </div>
           <div className="md:ml-auto flex flex-wrap items-center text-base justify-center"></div>
         </div>
