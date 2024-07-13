@@ -5,6 +5,7 @@ export const corsConfig: CorsOptions = {
     'http://localhost:3000',
     'http://localhost:3001',
     'https://group-dmipqb41e-santiagotrivis-projects.vercel.app',
+    'https://lhzhxq7h-3000.use2.devtunnels.ms',
   ],
   preflightContinue: false,
   methods: ['*', 'PATCH'],
